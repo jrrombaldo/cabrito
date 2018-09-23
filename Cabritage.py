@@ -14,17 +14,16 @@ import xml.etree.cElementTree as ET
 def configure():
     return yaml.load(file('cabritage.yml', 'rb').read())
 
+
 config = configure()
-
-
 
 
 class Adobe:
     def __init__(self, filename, app):
 
-        if not os.path.exists(app):
-            print "app [{0}] not found".format(app)
-            exit(1)
+        # if not os.path.exists(app):
+        #     print "app [{0}] not found".format(app)
+        #     exit(1)
         self.app = app
 
         if not os.path.exists(filename):
@@ -65,20 +64,23 @@ class Adobe:
     def open_app(self):
         os.system('open -a %s' % self.app)
 
+
 def run_sketch():
     user = os.environ['USER']
-    command =  "/usr/bin/osascript -e 'do shell script \"./sketch.sh \'{0}\'\" with administrator privileges'".format(user)
+    script = os.environ['PWD'] + os.sep + "sketch.sh"
+    command = "/usr/bin/osascript -e 'do shell script \"{0} \'{1}\'\" with administrator privileges'".\
+        format(script, user)
     print command
     os.system(command)
 
 
-class AppDelegate (NSObject):
+class AppDelegate(NSObject):
     def applicationDidFinishLaunching_(self, aNotification):
         print("application started")
 
     def photoShop_(self, sender):
         print("photoshop")
-        photoshop = Adobe(config['photoshop']['serial_file'],config['photoshop']['app'])
+        photoshop = Adobe(config['photoshop']['serial_file'], config['photoshop']['app'])
         photoshop.update_trial()
         photoshop.open_app()
 
@@ -91,8 +93,8 @@ class AppDelegate (NSObject):
     def sketch_(self, sender):
         print("sketch")
 
-
         run_sketch()
+
 
 def main():
     app = NSApplication.sharedApplication()
@@ -104,30 +106,28 @@ def main():
     NSApp().setDelegate_(delegate)
 
     win = NSWindow.alloc()
-    frame = ((200.0, 300.0), (400.0, 100.0))
-    win.initWithContentRect_styleMask_backing_defer_ (frame, 15, 2, 0)
-    win.setTitle_ ('Cabritage')
-    win.setLevel_ (3)                   # floating window
+    frame = ((200.0, 300.0), (430.0, 100.0))
+    win.initWithContentRect_styleMask_backing_defer_(frame, 15, 2, 0)
+    win.setTitle_('Cabritage Mil Grau')
+    win.setLevel_(3)  # floating window
 
+    ps_btn = NSButton.alloc().initWithFrame_(((20.0, 10.0), (90.0, 80.0)))
+    win.contentView().addSubview_(ps_btn)
+    ps_btn.setBezelStyle_(4)
+    ps_btn.setTitle_('PhotoShop')
+    ps_btn.setTarget_(app.delegate())
+    ps_btn.setAction_("photoShop:")
 
-
-    ps_btn = NSButton.alloc().initWithFrame_ (((10.0, 10.0), (80.0, 80.0)))
-    win.contentView().addSubview_ (ps_btn)
-    ps_btn.setBezelStyle_(6)
-    ps_btn.setTitle_( 'PhotoShop!' )
-    ps_btn.setTarget_( app.delegate() )
-    ps_btn.setAction_( "photoShop:" )
-
-    il_btn = NSButton.alloc().initWithFrame_(((100.0, 10.0), (80.0, 80.0)))
+    il_btn = NSButton.alloc().initWithFrame_(((120.0, 10.0), (90.0, 80.0)))
     win.contentView().addSubview_(il_btn)
-    il_btn.setBezelStyle_(6)
+    il_btn.setBezelStyle_(4)
     il_btn.setTitle_('Illustrator')
     il_btn.setTarget_(app.delegate())
     il_btn.setAction_("illustrator:")
 
-    sk_btn = NSButton.alloc().initWithFrame_(((190.0, 10.0), (80.0, 80.0)))
+    sk_btn = NSButton.alloc().initWithFrame_(((220.0, 10.0), (90.0, 80.0)))
     win.contentView().addSubview_(sk_btn)
-    sk_btn.setBezelStyle_(6)
+    sk_btn.setBezelStyle_(4)
     sk_btn.setTitle_('Sketch')
     sk_btn.setTarget_(app.delegate())
     sk_btn.setAction_("sketch:")
@@ -136,23 +136,24 @@ def main():
     # beep.initWithContentsOfFile_byReference_( '/System/Library/Sounds/Tink.Aiff', 1 )
     # ps_btn.setSound_( beep )
 
-    bye = NSButton.alloc().initWithFrame_ (((280.0, 10.0), (80.0, 80.0)))
-    win.contentView().addSubview_ (bye)
-    bye.setBezelStyle_( 4 )
-    bye.setTarget_ (app)
-    bye.setAction_ ('stop:')
-    bye.setEnabled_ ( 1 )
-    bye.setTitle_( 'Quit!' )
+    bye = NSButton.alloc().initWithFrame_(((320.0, 10.0), (90.0, 80.0)))
+    win.contentView().addSubview_(bye)
+    bye.setBezelStyle_(4)
+    bye.setTarget_(app)
+    bye.setAction_('stop:')
+    bye.setEnabled_(1)
+    bye.setTitle_('Quit!')
 
     # adios = NSSound.alloc()
     # adios.initWithContentsOfFile_byReference_(  '/System/Library/Sounds/Basso.aiff', 1 )
     # bye.setSound_( adios )
 
     win.display()
-    win.orderFrontRegardless()          ## but this one does
+    win.orderFrontRegardless()  ## but this one does
 
     AppHelper.runEventLoop()
 
 
-if __name__ == '__main__' :
+if __name__ == '__main__':
     main()
+

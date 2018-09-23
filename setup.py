@@ -8,8 +8,10 @@ Usage:
 from setuptools import setup
 
 APP = ['Cabritage.py']
-DATA_FILES = []
-OPTIONS = {'resources': 'requirements.txt,cabritage.yml'}
+DATA_FILES = ['sketch.sh']
+OPTIONS = {'arch': 'x86_64',
+ 'dist_dir': '/Applications',
+ 'resources': 'requirements.txt,cabritage.yml'}
 
 setup(
     app=APP,
