@@ -1,0 +1,16 @@
+photoshop:
+#  app: '/Applications/Adobe Photoshop CC 2018'
+#  serial_file: '/Library/Application Support/Adobe/Adobe Photoshop CC 2018/AMT/application.xml'
+  app: '/Users/junior/dev/repos/cabritage/tmp/application_cs.xml'
+  serial_file: '/Users/junior/dev/repos/cabritage/tmp/application_cs.xml'
+
+illustrator:
+#  app:
+#  serial_file: '/Applications/Adobe\ Illustrator\ CC\ 2018/Support\ Files/AMT/AI/AMT/application.xml'
+  app: '/Users/junior/dev/repos/cabritage/tmp/application.xml'
+  serial_file: '/Users/junior/dev/repos/cabritage/tmp/application.xml'
+
+
+sketch:
+  file: '/Applications/Sketch.app'
+  user: junior
