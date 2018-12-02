@@ -1,0 +1,33 @@
+{
+  "name": "cabrito-cracker",
+  "productName": "Cabrito Cracker",
+  "version": "1.0.0",
+  "description": "An proof of concept application that extends Photoshop and Illustrator trials",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/jrrombaldo/cabrito",
+  "keywords": [
+    "photoshop",
+    "sketch",
+    "illustrator",
+    "trial",
+    "extend",
+    "crack"
+  ],
+  "author": "Carlos Rombaldo",
+  "license": "APL 2.0",
+  "devDependencies": {
+    "electron": "^3.0.7"
+  },
+  "dependencies": {
+    "big-number": "^1.0.0",
+    "electron-packager": "^12.2.0",
+    "fs": "0.0.1-security",
+    "is-root": "^2.0.0",
+    "json-query": "^2.2.2",
+    "xmldom": "^0.1.27",
+    "xpath": "0.0.27"
+  }
+}
