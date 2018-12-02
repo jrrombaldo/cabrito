@@ -23,7 +23,7 @@ function click_crack(evt) {
   var target = evt.target.targetPar
   //con.log(target);
   ipcRenderer.send('crack-'+target)
-  ipcRenderer.send('open-dialog', target)
+  // ipcRenderer.send('open-dialog', target)
 }
 
 
