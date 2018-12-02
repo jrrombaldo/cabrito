@@ -27,6 +27,7 @@
     "fs": "0.0.1-security",
     "is-root": "^2.0.0",
     "json-query": "^2.2.2",
+    "sudo-prompt": "^8.2.3",
     "xmldom": "^0.1.27",
     "xpath": "0.0.27"
   }

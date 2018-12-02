@@ -5,33 +5,43 @@ var dom = require('xmldom').DOMParser
 const exec = require('child_process').exec;
 var BigNumber = require('big-number');
 const { dialog } = require('electron')
+var sudo = require('sudo-prompt')
+
+
 
 
 module.exports = {
     crack_photoshop,
-    crack_illustrator
+    crack_illustrator,
+    adjust_permissions
 }
 
 
-const photostop2018_instalation = '/Applications/Adobe\ Photoshop\ CC\ 2018/Adobe\ Photoshop\ CC\ 2018.app/'
-const photostop2019_instalation = '/Applications/Adobe\ Photoshop\ CC\ 2019/Adobe\ Photoshop\ CC\ 2019.app/'
-const photostop2018_trial = '/Library/Application Support/Adobe/Adobe\ Photoshop\ CC\ 2018/AMT/application.xml'
-const photostop2019_trial = "/Library/Application\ Support/Adobe/Adobe\ Photoshop\ CC\ 2019/AMT/application.xml"
+const photostop2018_instalation = '/Applications/Adobe Photoshop CC 2018/Adobe Photoshop CC 2018.app/'
+const photostop2019_instalation = '/Applications/Adobe Photoshop CC 2019/Adobe Photoshop CC 2019.app/'
 
-const illustrator2018_instalation = '/Applications/Adobe\ Illustrator\ CC\ 2018/Adobe\ Illustrator.app/'
-const illustrator2019_instalation = '/Applications/Adobe\ Illustrator\ CC\ 2019/Adobe\ Illustrator.app/'
+const photostop2018_trial = '/Library/Application Support/Adobe/Adobe Photoshop CC 2018/AMT/application.xml'
+const photostop2019_trial = "/Library/Application Support/Adobe/Adobe Photoshop CC 2019/AMT/application.xml"
+const photoshopPermission = "/Library/Application\\ Support/Adobe/Adobe\\ Photoshop*/AMT/application.xml"
+
+const illustrator2018_instalation = '/Applications/Adobe Illustrator CC 2018/Adobe Illustrator.app/'
+const illustrator2019_instalation = '/Applications/Adobe Illustrator CC 2019/Adobe Illustrator.app/'
+
 const illustrator2018_trial = '/Applications/Adobe Illustrator CC 2018/Support Files/AMT/AI/AMT/application.xml'
-const illustrator2019_trial = '/Applications/Adobe\ Illustrator\ CC\ 2019/Support\ Files/AMT/AI/AMT/application.xml'
+const illustrator2019_trial = '/Applications/Adobe Illustrator CC 2019/Support Files/AMT/AI/AMT/application.xml'
+const illustratorPermission = '/Applications/Adobe\\ Illustrator*/Support\\ Files/AMT/AI/AMT/application.xml'
 
 // GLOBAL variables to define application, installation dir and trial file
 let instalation = null
 let trial_file = null
 let app = null
+let permissionSet = false
 
 
 function crack_photoshop() {
     app = 'photoshop'
     crack_adobe()
+
 }
 function crack_illustrator() {
     app = 'illustrator'
@@ -79,18 +89,22 @@ function find_trial() {
 function crack_adobe() {
     try {
 
+        if (!permissionSet) {
+            dialog.showErrorBox("Error", "permissions not set yet")
+            return false
+        }
+
         find_version()
         if (!instalation) {
-            dialog.showErrorBox(app + ' installation not found :(')
+            dialog.showErrorBox("Error", app + ' installation not found :(')
             return false
         }
 
         find_trial()
         if (!trial_file) {
-            dialog.showErrorBox(app + ' trial file not found :(')
+            dialog.showErrorBox("Error", app + ' trial file not found :(')
             return false
         }
-
 
         // reading current trial timestamp
         current_ts = get_current_trial(trial_file)
@@ -105,7 +119,7 @@ function crack_adobe() {
         open_app(instalation)
 
     } catch (e) {
-        console.log('error: ' + e)
+        console.log('Error: ' + e)
         return false
     }
     return true
@@ -150,8 +164,38 @@ function open_app(application_location) {
             console.log(`exec error: ${err}`);
             return;
         } else {
-            console.log(`${stdout}`);
+            console.log(stdout);
         }
     }
     res = exec('open "' + application_location + '"', Callback);
+}
+
+function msleep(n) {
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, n);
+}
+
+
+
+
+
+
+function adjust_permissions() {
+    var cmd = 'chmod 766 ' + photoshopPermission + ' ' + illustratorPermission
+    cmd = cmd + " && ls -lsh  " + photoshopPermission
+    cmd = cmd + " && ls -lsh  " + illustratorPermission
+    console.log("exec:" + cmd)
+    var options = {
+        name: 'Cabrito',
+        icns: path.join(__dirname, "images", "goatIcon.icns"),
+    };
+
+    function callback(error, stdout, stderr) {
+        if (error) throw error
+        else {
+            console.log('stdout: ' + stdout);
+            console.log('stderr: ' + stderr);
+            permissionSet = true
+        }
+    }
+    sudo.exec(cmd, options, callback);
 }

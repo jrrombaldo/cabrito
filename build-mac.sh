@@ -8,4 +8,4 @@ electron-packager . \
 --prune=true \
 --out=release-builds
 
-cp -r ./release-builds/*/*.app ./
+# cp -r ./release-builds/*/*.app ./

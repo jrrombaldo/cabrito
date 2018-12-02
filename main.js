@@ -3,7 +3,7 @@ const { app, BrowserWindow } = require('electron')
 const { ipcMain, dialog } = require('electron')
 const path = require('path')
 const { Menu, Tray } = require('electron')
-const isRoot = require('is-root');
+// const isRoot = require('is-root');
 var cracker = require('./cracker.js')
 
 
@@ -33,13 +33,13 @@ function add_icon_to_tray() {
 
 
 
-function checking_root(){
-  console.log(isRoot())
-  if (!isRoot()) {
-    dialog.showErrorBox('Not ROOT', "This app needs super user privs to work!")
-  }
+// function checking_root(){
+//   console.log(isRoot())
+//   if (!isRoot()) {
+//     dialog.showErrorBox('Not ROOT', "This app needs super user privs to work!")
+//   }
 
-}
+// }
 
 
 
@@ -55,7 +55,8 @@ function createWindow() {
   // mainWindow.webContents.openDevTools()
 
 
-  checking_root();
+  // checking_root();
+  cracker.adjust_permissions();
 
 
 

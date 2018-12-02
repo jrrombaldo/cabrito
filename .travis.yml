@@ -18,6 +18,6 @@ script:
   - git checkout master
   - git add ./*.app
   - git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
-  - git remote add origin-pages https://github.com/jrrombaldo/cabrito.git > /dev/null 2>&1
+  - git remote add origin-pages https://@github.com/jrrombaldo/cabrito.git > /dev/null 2>&1
   - git push --quiet --set-upstream origin-pages gh-pages 
 
