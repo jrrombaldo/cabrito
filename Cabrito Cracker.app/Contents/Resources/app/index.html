@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cabitrage mil grau</title>
+
+  <style>
+    body {
+      font-family: "Roboto";
+      font-weight: 400;
+      /* normal */
+      /* font-weight: 500; //medium */
+      /* font-weight: 700; //bold */
+      color: grey;
+      background: rgb(28, 40, 74);
+    }
+
+    #container {
+      clear: both;
+      display: table;
+      vertical-align: middle;
+    }
+
+    #goat {
+      background: url("images/goat.png");
+      background-repeat: no-repeat;
+      background-size: 200px 200px;
+      width: 200px;
+      height: 200px;
+      float: right;
+    }
+
+    #btn {
+      float: left;
+      margin-top: 50px;
+    }
+
+    #btn img {
+      width: 100px;
+      height: 100px;
+      margin: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id=container>
+    <div id="btn">
+      <img id="sketchBtn" src="images/sketch.png" />
+      <img id="psBtn" src="images/photoshop.png" />
+      <img id="illBtn" src="images/illustrator.png" />
+    </div>
+
+    <div id="goat"></div>
+  </div>
+
+  <script>
+    require('./renderer.js')
+  </script>
+</body>
+
+</html>
