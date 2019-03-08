@@ -1,7 +1,7 @@
 {
   "name": "cabrito-cracker",
   "productName": "cabrito",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "An proof of concept application that extends Photoshop and Illustrator trials",
   "main": "main.js",
   "scripts": {
@@ -19,11 +19,11 @@
   "author": "Carlos Rombaldo",
   "license": "APL 2.0",
   "devDependencies": {
-    "electron": "^3.0.7"
+    "electron": "^3.0.7",
+    "electron-builder": "^20.38.5"
   },
   "dependencies": {
     "big-number": "^1.0.0",
-    "electron-packager": "^12.2.0",
     "fs": "0.0.1-security",
     "is-root": "^2.0.0",
     "json-query": "^2.2.2",

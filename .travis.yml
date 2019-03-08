@@ -10,7 +10,7 @@ addons:
     packages:
       - zip
 script:
-  - sh ./build-mac.sh
+  - electron-builder --config electron-builder.yaml
 before_deploy:
   - export TRAVIS_TAG="Build_$(date +'%Y.%m.%d-%H%M')"
 deploy:
@@ -19,7 +19,7 @@ deploy:
   skip_cleanup: true
   api_key:
     secure: YHfG7WQbiGaUVY2tH/dmpLmr+DcCZi6lJD2SVwuEubsMGg0EMs88YomludZ/yeFzWaxfV4P3AFz7uhQjIjzcS7BfbJLtgnFI9maC14/dIdZtXusYVeBygp1k4T9CL9ttMLrQPTN80UPY3YIk+bea64g/xLwdlTtCNuWSkg6qN/kdz4vsq+9uOMi85ZVbZKQLcDuyaNkCSDiKBWX2q2nykB4oGJEZVIgvsEBSMvSld+9MevooNopsDrQTKemi/iOYkiWmpWfMZiQrVTX83EiitJExK5p+1zy/YhLEfKDCkiedUtSZQxVBbPKkaHnkr0TfRUNigbkrqVNGCSyfERYbylMfetJHsMqDDN/tHq/MbmagiFgIiVoofA46Zg5SAICs0HQ1OlBh36XNS+ojcw9e6c+mtDHTqx6SdTh6yBIkz9LnmxzKILF4oKvh7FhqV8et8OHVxkdjnt/8/XT2Q6xTfVEO/0Mr0Vjj3Cuyfoyneix0LzuOxsEaFKk09QMpS586wr/p8x9bAxpUqjlejobEBUs0HU6ljX3pB4aB9nOOpG8r3ZvKIeKotxsPUBtCYYhZXxk2rAL2CiStyARb4HU+AE1Au2UE0SVqBhQP0/ozPGT/OAyTkPLiTRYYAvyxMU2nbDV97/PF9QsdcbyxzVJkTJTQH4m8smOMil+BYrRh9SA=
-  file: cabrito.zip
+  file: release-builds/cabrito-0.0.1.dmg
   on:
     tags: false
     branch: "master"
