@@ -1,6 +1,6 @@
 {
   "name": "cabrito-cracker",
-  "productName": "Cabrito Cracker",
+  "productName": "Cabrito",
   "version": "1.0.0",
   "description": "An proof of concept application that extends Photoshop and Illustrator trials",
   "main": "main.js",

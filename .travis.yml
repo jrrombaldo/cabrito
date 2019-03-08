@@ -6,24 +6,15 @@ matrix:
   include:
   - os: osx
 before_install:
-- npm install
-- git config --global user.email "travis@travis-ci.org"
-- git config --global user.name "Travis CI"
+# - npm install
+# - git config --global user.email "jr.rombaldo@gmail.com"
+# - git config --global user.name "Carlos Rombaldo"
 script:
-- PATH=$(npm bin):$PATH
-- electron-packager . --overwrite --platform=darwin --arch=x64 --icon=./images/goatIcon.icns
-  --prune=true --out=release-builds
-- cp -r ./release-builds/*/*.app ./
-- git checkout master
-- git add ./*.app
-- git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
-- git remote add origin-pages https://@github.com/jrrombaldo/cabrito.git > /dev/null
-  2>&1
-- git push --quiet --set-upstream origin-pages gh-pages
+- sh ./build-mac.sh
 deploy:
   provider: releases
   api_key:
     secure: YHfG7WQbiGaUVY2tH/dmpLmr+DcCZi6lJD2SVwuEubsMGg0EMs88YomludZ/yeFzWaxfV4P3AFz7uhQjIjzcS7BfbJLtgnFI9maC14/dIdZtXusYVeBygp1k4T9CL9ttMLrQPTN80UPY3YIk+bea64g/xLwdlTtCNuWSkg6qN/kdz4vsq+9uOMi85ZVbZKQLcDuyaNkCSDiKBWX2q2nykB4oGJEZVIgvsEBSMvSld+9MevooNopsDrQTKemi/iOYkiWmpWfMZiQrVTX83EiitJExK5p+1zy/YhLEfKDCkiedUtSZQxVBbPKkaHnkr0TfRUNigbkrqVNGCSyfERYbylMfetJHsMqDDN/tHq/MbmagiFgIiVoofA46Zg5SAICs0HQ1OlBh36XNS+ojcw9e6c+mtDHTqx6SdTh6yBIkz9LnmxzKILF4oKvh7FhqV8et8OHVxkdjnt/8/XT2Q6xTfVEO/0Mr0Vjj3Cuyfoyneix0LzuOxsEaFKk09QMpS586wr/p8x9bAxpUqjlejobEBUs0HU6ljX3pB4aB9nOOpG8r3ZvKIeKotxsPUBtCYYhZXxk2rAL2CiStyARb4HU+AE1Au2UE0SVqBhQP0/ozPGT/OAyTkPLiTRYYAvyxMU2nbDV97/PF9QsdcbyxzVJkTJTQH4m8smOMil+BYrRh9SA=
-  file: test
+  file: /release-builds/Cabrito-darwin-x64/Cabrito.app
   on:
-    repo: jrrombaldo/cabrito
+    repo: ./release-builds/Cabrito-darwin-x64/Cabrito.app
