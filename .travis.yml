@@ -11,6 +11,12 @@ before_install:
 # - git config --global user.name "Carlos Rombaldo"
 script:
 - sh ./build-mac.sh
+before_deploy:
+  - git config --local user.name "jr.rombaldo"
+  - git config --local user.email "jr.rombaldo@gmail.com"
+  - export TRAVIS_TAG="Build_$(date +'%Y.%m.%d-%H%M')"
+  # no longer tagging git repo as it trigger another build
+  # - git tag $TRAVIS_TAG
 deploy:
   provider: releases
   name: Build_$(date +'%Y.%m.%d-%H%M')
