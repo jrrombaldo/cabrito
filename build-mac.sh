@@ -9,7 +9,7 @@ NAME="Cabrito"
 VERSION="0.1"
 
 
-npm install 
+# npm install 
 
 PATH=$(npm bin):$PATH
 
