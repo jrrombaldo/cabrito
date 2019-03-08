@@ -5,9 +5,9 @@ set -xuo pipefail
 trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
 IFS=$'\n\t'
 
-NAME="Cabrito"
 VERSION="0.1"
-
+# getting appname from package.json
+APPNAME=$(node -p "require('./package.json').productName")
 
 # npm install 
 
@@ -15,8 +15,8 @@ PATH=$(npm bin):$PATH
 
 
 electron-packager . \
---appname=$NAME \
---build-version$VERSION \
+--executable-name=$APPNAME \
+--build-version=$VERSION \
 --overwrite \
 --platform=darwin \
 --arch=x64 \
@@ -27,8 +27,11 @@ electron-packager . \
 # --out="./"
 # cp -r ./release-builds/*/*.app ./
 
-REL_FILE=$(find . -type d -name "$NAME.app")
+REL_FILE=$(find . -type d -name "$APPNAME.app")
 echo "file created is $REL_FILE"
 
-# .travis.yml expects cabrito.app to create the release
-mv $REL_FILE ./cabrito.app
+# # # .travis.yml cabrito.zip to create the release
+#  also expecting the directory to always be release-builds
+cd ./release-builds/$APPNAME-darwin-x64/
+zip -r ../../cabrito.zip ./$APPNAME.app
+
