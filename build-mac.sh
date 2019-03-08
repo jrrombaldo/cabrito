@@ -29,3 +29,6 @@ electron-packager . \
 
 REL_FILE=$(find . -type d -name "$NAME.app")
 echo "file created is $REL_FILE"
+
+# .travis.yml expects cabrito.app to create the release
+mv $REL_FILE ./cabrito.app
